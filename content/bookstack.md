@@ -1,5 +1,6 @@
 Title: Bookstack installation on Centos 7
 Date: 2018-02-12 21:30
+Modified: 2018-02-13 07:20
 Category: Linux
 Tags: bookstack, selinux, centos
 Slug: bookstack-install
@@ -15,6 +16,7 @@ This will cover the installation of Bookstack on Centos 7 including selinux and 
 ## Prerequisites
 
 Run the following commands to prep your system for Bookstack:
+
 ```bash
 yum -y install epel-release
 yum -y install https://centos7.iuscommunity.org/ius-release.rpm
@@ -24,12 +26,14 @@ yum -y install git mariadb-server nginx php71u php71u-fpm php71u-gd php71u-mbstr
 ## MySQL Setup
 
 This is fairly straightforward, first we do the normal secure install:
+
 ```bash
 systemctl restart mariadb.service
 mysql_secure_installation
 ```
 
 Now put in the password of your choice, answer yes to everything else, and proceed:
+
 ```sql
 mysql -u root -p
 CREATE DATABASE IF NOT EXISTS bookstackdb DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -44,6 +48,7 @@ Next, we edit PHP-FPM's config file:
 `vim /etc/php-fpm.d/www.conf`
 
 Change/verify the following variables are set properly in the www.conf file:
+
 ```bash
 listen = /var/run/php-fpm.sock
 listen.owner = nginx ; 
@@ -63,7 +68,8 @@ And on to Nginx:
 `vim /etc/nginx/nginx.conf`
 
 Paste the following Nginx config:
-```
+
+```bash
 user nginx;
 worker_processes auto;
 error_log /var/log/nginx/error.log;
@@ -96,7 +102,8 @@ http {
 ```
 
 Now we edit the server configuration:
-```
+
+```bash
 server {
   listen 80;
   server_name localhost;
@@ -135,6 +142,7 @@ server {
 
 ## Bookstack Installation
 Composer Install (if PHP fails for some reason, look for similar issues here: https://www.rootusers.com/upgrade-php-5-6-7-1-centos-7-linux/):
+
 ```
 cd /usr/local/bin
 curl -sS https://getcomposer.org/installer | php
@@ -142,6 +150,7 @@ mv composer.phar composer
 ```
 
 Bookstack install:
+
 ```
 cd /var/www
 mkdir /var/www/sessions
@@ -150,12 +159,14 @@ cd BookStack && composer install
 ```
 
 Once that's complete, back up the env file and edit it:
+
 ```
 cp .env.example .env
 vim .env
 ```
 
 Verify that the following settings are correctly set based on the MySQL user you created earlier:
+
 ```
 DB_HOST=localhost
 DB_DATABASE=bookstackdb
@@ -164,6 +175,7 @@ DB_PASSWORD=bookstackpass
 ```
 
 ## Cleanup
+
 ```
 php artisan key:generate --force
 chown -R nginx:nginx /var/www/{BookStack,sessions}
@@ -174,6 +186,7 @@ Enable the services:
 `systemctl enable nginx.service && systemctl enable mariadb.service && systemctl enable php-fpm.service`
 
 Firewall rules:
+
 ```
 firewall-cmd --permanent --add-port 80/tcp
 firewall-cmd --reload
@@ -192,15 +205,19 @@ However, since you may want to use this at work, here's how you'd configure LDAP
 ## Group-Based LDAP Authentication via Microsoft Active Directory
 
 Install the required package:
+
 `yum install php71u-ldap`
 
 Set the SELinux permission:
+
 `setsebool -P httpd_can_network_connect 1`
 
 Edit the .env file:
+
 `vim /var/www/BookStack/.env`
 
 And add the following values:
+
 ```
 # LDAP Settings
 LDAP_SERVER=ad1.contoso.com:389
@@ -212,7 +229,9 @@ LDAP_VERSION=3
 ```
 
 Now run
+
 `php artisan optimize`
+
 to verify it's good to go!
 
 <p class="text-warning">Note: the filter is checking if SAMAccountName $user exists and is ALSO matching as a memberOf the CN=BookStackAdmin group using the full Distinguished Name. This is not documented anywhere.</p>
