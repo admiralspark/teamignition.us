@@ -57,7 +57,9 @@ php_value[session.save_path] = /var/www/sessions
 ## NGINX Configuration
 
 And on to Nginx:
+
 `mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig`
+
 `vim /etc/nginx/nginx.conf`
 
 Paste the following Nginx config:
@@ -178,6 +180,7 @@ firewall-cmd --reload
 ```
 
 Selinux rule:
+
 `setsebool -P httpd_unified 1`
 
 Now, reboot! 
