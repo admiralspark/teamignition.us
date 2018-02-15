@@ -23,13 +23,23 @@ AUTHOR_FEED_RSS = None
 PLUGIN_PATHS = ['/home/admiralspark/pelican-plugins']
 PLUGINS = ['i18n_subsites']
 
-# Themes
-THEME = "/home/admiralspark/pelican-themes/pelican-bootstrap3"
-JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
-DISPLAY_PAGES_ON_MENU = True
+# Main site options
+USE_FOLDER_AS_CATEGORY = True
+DEFAULT_CATEGORY = 'misc'
 DISPLAY_CATEGORIES_ON_MENU = True
-BOOTSTRAP_THEME = 'lux'
+DISPLAY_PAGES_ON_MENU = True
 SHOW_ARTICLE_CATEGORY = True
+DELETE_OUTPUT_DIRECTORY = True
+SLUGIFY_SOURCE = 'title'
+
+# Themes
+#THEME = "/home/admiralspark/pelican-themes/pelican-bootstrap3"
+#JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
+#BOOTSTRAP_THEME = 'sandstone'
+THEME = "/home/admiralspark/pelican-themes/blueidea"
+
+# For Testing purposes
+LOAD_CONTENT_CACHE = False
 
 DEFAULT_PAGINATION = 10
 
