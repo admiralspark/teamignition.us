@@ -39,7 +39,7 @@ SLUGIFY_SOURCE = 'title'
 THEME = "/home/admiralspark/pelican-themes/blueidea"
 
 # For Testing purposes
-LOAD_CONTENT_CACHE = False
+LOAD_CONTENT_CACHE = True
 
 DEFAULT_PAGINATION = 10
 
