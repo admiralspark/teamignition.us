@@ -96,11 +96,13 @@ Modify the file label so that the httpd_t domain can access the file:
 By default, this modification is deleted when the file system is relabelled. To make the change permanent, run:
 
 `semanage fcontext -a -t httpd_sys_content_t /var/www/bookstack.html`
+
 `restorecon -v /var/www/bookstack.html`
 
 To modify file labels for groups of files, run:
 
 `semanage fcontext -a -t httpd_sys_content_t /var/www(/.*)?`
+
 `restorecon -Rv /var/www`
 
 #### Alternative choice, extending the httpd_t 'Domain' permissions with Audit2Allow
@@ -112,6 +114,7 @@ First, check what the file would read like (just to see, not functional):
 That generated file will be used to modify the selinux domain for this context and allow the new areas. This creates a Type Enforcement (.te) policy:
 
 `grep nginx /var/log/audit/audit.log | audit2allow -m nginx > nginx.te`
+
 `cat nginx.te`
 
 ```bash
