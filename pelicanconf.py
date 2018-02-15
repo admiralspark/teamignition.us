@@ -28,7 +28,7 @@ THEME = "/home/admiralspark/pelican-themes/pelican-bootstrap3"
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 DISPLAY_PAGES_ON_MENU = True
 DISPLAY_CATEGORIES_ON_MENU = True
-BOOTSTRAP_THEME = 'sandstone'
+BOOTSTRAP_THEME = 'lux'
 SHOW_ARTICLE_CATEGORY = True
 
 DEFAULT_PAGINATION = 10
