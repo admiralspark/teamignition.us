@@ -7,7 +7,7 @@ Summary: Or, how to stop fearing selinux without the boring intro text
 
 # Intro
 
-SELinux is a powerful security framework built into every RHEL/CentOS box out there. Originally, it was an overly-complicated tool that sysadmins around the world reacted to negatively as the documentation was poor (in the understandable sense) and the helper tools we have today weren't around. However, Red Hat has spent a bunch of time fleshing out the docuemntation, building classes and educational materials for it, and most importantly building tools to help diagnose issues and deploy applications faster.
+SELinux is a powerful security framework built into every RHEL/CentOS box out there. Originally, it was an overly-complicated tool that sysadmins around the world reacted to negatively as the documentation was poor (in the understandable sense) and the helper tools we have today weren't around. However, Red Hat has spent a bunch of time fleshing out the documentation, building classes and educational materials for it, and most importantly building tools to help diagnose issues and deploy applications faster.
 
 By default, all applications installed from one of the core repositories will have the SELinux rules they need to function, and so if you run into a core app throwing SELinux errors you should probably open a bug report for it. However, doing anything custom (every php application ever, for example) will need some custom rules set.
 

@@ -33,10 +33,10 @@ DELETE_OUTPUT_DIRECTORY = True
 SLUGIFY_SOURCE = 'title'
 
 # Themes
-#THEME = "/home/admiralspark/pelican-themes/pelican-bootstrap3"
-#JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
-#BOOTSTRAP_THEME = 'sandstone'
-THEME = "/home/admiralspark/pelican-themes/blueidea"
+THEME = "/home/admiralspark/pelican-themes/pelican-bootstrap3"
+JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
+BOOTSTRAP_THEME = 'sandstone'
+#THEME = "/home/admiralspark/pelican-themes/blueidea"
 
 # For Testing purposes
 LOAD_CONTENT_CACHE = True
