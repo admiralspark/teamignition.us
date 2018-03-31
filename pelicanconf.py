@@ -35,6 +35,7 @@ DISPLAY_ARTICLE_INFO_ON_INDEX = True
 DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
 NEWEST_FIRST_ARCHIVES = True
 
+# Banner items for theme
 BANNER = 'images/banner.png'
 BANNER_ALL_PAGES = True
 BANNER_SUBTITLE = 'Eat. Sleep. Code. Repeat.'
@@ -42,11 +43,10 @@ BANNER_SUBTITLE = 'Eat. Sleep. Code. Repeat.'
 # Themes
 THEME = "/home/admiralspark/pelican-themes/pelican-bootstrap3"
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
-BOOTSTRAP_THEME = 'lumen'#'sandstone'
-#THEME = "/home/admiralspark/pelican-themes/blueidea"
+BOOTSTRAP_THEME = 'lumen'
 
 # For Testing purposes
-LOAD_CONTENT_CACHE = False
+LOAD_CONTENT_CACHE = True
 
 DEFAULT_PAGINATION = 10
 
