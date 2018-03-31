@@ -37,7 +37,7 @@ NEWEST_FIRST_ARCHIVES = True
 
 BANNER = 'images/banner.png'
 BANNER_ALL_PAGES = True
-BANNER_SUBTITLE = 'Someday, you too will have nine 5s uptime'
+BANNER_SUBTITLE = 'Eat. Sleep. Code. Repeat.'
 
 # Themes
 THEME = "/home/admiralspark/pelican-themes/pelican-bootstrap3"
