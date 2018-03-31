@@ -1,5 +1,4 @@
 Title: Powershell Snippets - Setting Out of Office (OOF) on a user's mailbox
-Date: 2018-03-30 21:30
 Category: Windows
 Tags: powershell, snippets, exchange
 Authors: Admiralspark
