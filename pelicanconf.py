@@ -35,6 +35,9 @@ DISPLAY_ARTICLE_INFO_ON_INDEX = True
 DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
 NEWEST_FIRST_ARCHIVES = True
 
+BANNER = './content/images/banner.jpeg'
+BANNER_ALL_PAGES = True
+
 # Themes
 THEME = "/home/admiralspark/pelican-themes/pelican-bootstrap3"
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
