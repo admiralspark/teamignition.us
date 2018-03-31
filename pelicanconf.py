@@ -38,11 +38,11 @@ NEWEST_FIRST_ARCHIVES = True
 # Themes
 THEME = "/home/admiralspark/pelican-themes/pelican-bootstrap3"
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
-BOOTSTRAP_THEME = 'sandstone'
+BOOTSTRAP_THEME = 'lumen'#'sandstone'
 #THEME = "/home/admiralspark/pelican-themes/blueidea"
 
 # For Testing purposes
-LOAD_CONTENT_CACHE = True
+LOAD_CONTENT_CACHE = False
 
 DEFAULT_PAGINATION = 10
 
