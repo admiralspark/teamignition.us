@@ -35,7 +35,7 @@ DISPLAY_ARTICLE_INFO_ON_INDEX = True
 DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
 NEWEST_FIRST_ARCHIVES = True
 
-BANNER = '/content/images/banner.jpeg'
+BANNER = '/var/www/teamignition.us/content/images/banner.jpeg'
 BANNER_ALL_PAGES = True
 
 # Themes
