@@ -11,12 +11,16 @@ Authors: Admiralspark
 This one is pretty straightforward--user's gone from work unexpectedly and you need to set their out of office reply without resetting their password or granting yourself access rights to their account. The script is here:
 
 ```powershell
-Set-MailboxAutoReplyConfiguration -Identity domainuser -AutoReplyState Scheduled -StartTime "3/20/2018 08:00:00" -EndTime "3/22/2018 08:00:00" -InternalMessage "Hello, I'm out of the office on unplanned leave, if you need immediate assistance please contact $Supervisor at SupEmail@domain.name, thank you!" -ExternalMessage "Hello, I'm out of the office on unplanned leave, if you need immediate assistance please contact $Supervisor, thank you!" -ExternalAudience Known
+Set-MailboxAutoReplyConfiguration -Identity domainuser -AutoReplyState Scheduled \
+-StartTime "3/20/2018 08:00:00" -EndTime "3/22/2018 08:00:00" \
+-InternalMessage "Hello, I'm out of the office on unplanned leave, if you need immediate assistance please contact $Supervisor at SupEmail@domain.name, thank you!" \
+-ExternalMessage "Hello, I'm out of the office on unplanned leave, if you need immediate assistance please contact $Supervisor, thank you!" \
+-ExternalAudience Known
 ```
 
 The command makes use of the [Set-MailboxAutoReplyConfiguration](https://technet.microsoft.com/en-us/library/dd638217(v=exchg.160).aspx) cmdlet in powershell. This is mirrored by the [Get-MailboxAutoReplyConfiguration](https://technet.microsoft.com/en-us/library/dd638081(v=exchg.160).aspx) cmdlet which will tell you what's currently set. 
 
-These are the options we can use:
+## Command Options Table
 
 <table class="table table-hover">
   <thead>
