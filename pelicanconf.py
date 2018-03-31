@@ -39,6 +39,10 @@ BANNER = 'images/banner.png'
 BANNER_ALL_PAGES = True
 BANNER_SUBTITLE = 'Eat. Sleep. Code. Repeat.'
 
+STATIC_PATHS = [
+    '.well-known/acme-challenge',
+]
+
 # Themes
 THEME = "/home/admiralspark/pelican-themes/pelican-bootstrap3"
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
