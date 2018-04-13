@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'Admiralspark'
 SITENAME = u'Ignition'
-SITEURL = 'http://teamignition.us'
+SITEURL = 'https://teamignition.us'
 
 PATH = 'content'
 
@@ -46,7 +46,7 @@ JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 BOOTSTRAP_THEME = 'lumen'
 
 # For Testing purposes
-LOAD_CONTENT_CACHE = True
+LOAD_CONTENT_CACHE = False
 
 DEFAULT_PAGINATION = 10
 
