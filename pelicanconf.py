@@ -46,7 +46,7 @@ JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 BOOTSTRAP_THEME = 'lumen'
 
 # For Testing purposes
-LOAD_CONTENT_CACHE = False
+LOAD_CONTENT_CACHE = True
 
 DEFAULT_PAGINATION = 10
 
