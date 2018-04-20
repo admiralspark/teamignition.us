@@ -43,4 +43,4 @@ As a high level, I'll be going through the installation and configuration of the
 
 At the end of this, you will be able to react proactively instead of reactively to issues in your environment, have a better hgih-level and detailed view of what's actually happening in your network, and a scalable, widely-supported git-based solution for your device configurations, change management and automation systems. I'll try to cover all of the details that normally get skipped, like how to actually format your Oxidized configs and what Group Policies are needed for WinRM connectivity in Windows domains.
 
-To begin, lets get LibreNMS set up and monitor our first endpoint.
+To begin, we'll set up LibreNMS and monitor our first endpoint.
