@@ -36,9 +36,9 @@ As a high level, I'll be going through the installation and configuration of the
 - **Nagios Service Checks** - for monitoring services, seamlessly integrated into LibreNMS
 - **Gitlab** - for centralized, change-tracking backups of device configuration files and any code you happen to run
 - **Oxidized** - automatic configuration backups and revisioning, exporting to your Gitlab instance above
-  - If you use centralized auth (RADIUS), you can even see *who made which changes when* using this, which is awesome for change management
+    - If you use centralized auth (RADIUS), you can even see *who made which changes when* using this, which is awesome for change management
 - **Graylog** for centralized logging, alerting on those logs, and threat intelligence once we have it ingesting network traffic
-  - I'll also talk a bit here about event correlation as I go along, this is a WIP right now, but a bunch of what makes a SIEM useful can be imoplemented here without having the full stack SIEM to babysit all day.
+    - I'll also talk a bit here about event correlation as I go along, this is a WIP right now, but a bunch of what makes a SIEM useful can be imoplemented here without having the full stack SIEM to babysit all day.
 - **Ansible** - Once all of this is set up, you need to be able to deploy it *consistently* and *correctly*, so using Ansible to push to Windows, Linux and network devices. All, of course, backed up and managed by your git repo in Gitlab
 - Finally, auto-remediation will be orchestrated by all of these pieces working together.
 
