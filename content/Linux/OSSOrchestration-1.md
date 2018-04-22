@@ -17,12 +17,12 @@ When my current employer assigned me the task of "find everything we have and mo
 
 - **Monitoring**. We needed a ton of alerting points, like storage and CPU utilization
 - **Support all OS's**. Linux, Windows, network gear like Cisco IOS/Fortinet/Juniper/Dell etc, even printers
-  - This meant SNMP was the only realistic option
+    - This meant SNMP was the only realistic option
 - **Alerting via email**
-  - as a bonus, alerting in any other way as well (text, chat notification, Telegram, etc)
+    - as a bonus, alerting in any other way as well (text, chat notification, Telegram, etc)
 - **Service checks** - not just that it's running, but that it's *operating properly*
 - **Network configuration backups**
-  - Stored in GIT if possible
+    - Stored in GIT if possible
 - **Centralized logging (+ Alerting)**
 - Event correlation?
 - Auto-remediation?
