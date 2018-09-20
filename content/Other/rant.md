@@ -1,37 +1,33 @@
-Title: SELinux - Practical Intro to Audit2Why and Audit2Allow
-Date: 2018-02-14 20:30
-Category: Linux
-Tags: selinux, centos
+Title: How to stop being a Scrub and learn to use SELinux
+Date: 2018-09-20 5:35
+Category: Other
+Tags: selinux, centos, scrubs
 Authors: Admiralspark
-Summary: Or, how to stop fearing selinux without the boring intro text
+Summary: Holy shit guys, it's 2018. Stahp.
 
-# Intro
+## It's 2018, stop disabling SELinux
 
-SELinux is a powerful security framework built into every RHEL/CentOS box out there. Originally, it was an overly-complicated tool that sysadmins around the world reacted to negatively as the documentation was poor (in the understandable sense) and the helper tools we have today weren't around. However, Red Hat has spent a bunch of time fleshing out the documentation, building classes and educational materials for it, and most importantly building tools to help diagnose issues and deploy applications faster.
+I know you probably grew up in the hellish days of SELinux having no documentation and no supporting tools. I know you want to live up to the expectations of your BOFH and keep the good fight going. Or hell, maybe you're just a lazy SOB who doesn't give a shit about security. So you run the ol' `setenforce permissive` and move on.
 
-By default, all applications installed from one of the core repositories will have the SELinux rules they need to function, and so if you run into a core app throwing SELinux errors you should probably open a bug report for it. However, doing anything custom (every php application ever, for example) will need some custom rules set.
+**STOP.**
 
-## Prerequisites
+If this is you, you are bad. Bad as a systems administrator and bad at your job. The world has evolved and moved on, and your crusty ways are no longer right. There is no excuse, with the massive amount of documentation, full and complete package maintainer support for the rulesets, and the easy python utilities to manage rules should you hit a snag to not be using this incredible security layer from right now onwards. 
 
-Install the one package that will make your life eternally easier:
+Open a shell on your RHEL/CentOS box. Type:
 
 `yum install policycoreutils-python`
 
-This is a set of python scripts which parse the /var/log/audit/audit.log file and produce information on any errors found inside. If it's not a part of your base image, make it so, now!
+And boom. Now you have the magic secret sauce. 
 
-## Audit2Why and Audit2Allow
+SELinux is a tool that explicitly defines which apps, which files, and which processes can access which apps/files/processes across your system, and in what way. It's your tripwire for malicious software infections and downright prevents the majority 
 
-These are the most useful and commonly used utilities, so we'll start here. Audit2why parses the aforementioned audit.log and will return one-line commands for fixes on every denied entry, or point you to other utilities if it's more complicated (for example, base selinux assignments missing entirely).
+### Scenario 1
 
-For instance, let's say you have a full LAMP stack and it's having issues. To use audit2why to view problems with the httpd server, type:
+Let's say your LEMP stack isn't serving pages you just tossed in there. You built the html, tossed it in /var/www, fired it up and...nothing. Instead of being pissed at selinux, you run the following command:
 
-`grep http /var/log/audit/audit.log | audit2why`
+`grep nginx /var/log/audit/audit.log | audit2why`
 
-This will tell you what went wrong, and what type of policy is needed to fix the problem.
-
-### Network Access
-
-Here's some sample output:
+and it'll spit back some output, similar to the following:
 
 ```bash
 grep 1415714880.156:29 /var/log/audit/audit.log | audit2why
@@ -53,26 +49,25 @@ type=AVC msg=audit(1415714880.156:29): avc: denied { name_connect } for pid=1349
   # setsebool -P httpd_can_network_connect 1
 ```
 
-First, let's pick this apart. I just used grep to pick out a specific line that had an issue, I could have easily grep'd 'denied' and gotten the same one.
+See that? Not only do you have a tool that parses and makes the logs human-readable for you, it even *tells you how to fix the issue*. No major diagnosis needed, you just need to add selinux 'context rules' for the HTML you just tossed up there.
+
+**But, let's break it down even more:**
+
+In the original query, I used grep to pick out a specific line that had an issue; I could have easily grep'd 'denied' and gotten the same one.
 
 `avc: denied { name_connect }`
 
-This means selinux has denied a connection. Furthermore, `pid=1349 comm="nginx" dest=8080` tells us that nginx was trying to reach out on port 8080. The rest of the message shows the context it hit against.
+This means selinux has denied a connection. Furthermore, `pid=1272 comm="nginx" dest=8080` tells us that nginx was trying to communicate on port 8080. The rest of the message shows the selinux context it hit against.
 
-Now, Audit2Why recommends two potential options, both of which will give you potential fixes. You're welcome to google them, but as I knew this was nginx serving content on 8080 to a web browser, just run `setsebool -P httpd_can_network_connect 1` and you'll suddenly have it working if that's the only error you had.
+Now, **Audit2Why** recommends two potential options. You're welcome to google them, but as I knew this was nginx serving content on the nonstandard port 8080 to a web browser, just run `setsebool -P httpd_can_network_connect 1` and you'll suddenly have it working if that's the only error you had.
 
-### File Access
+Easy shit, right?
 
-Another common issue: you try to have nginx serve content from somewhere not normal (very common in the custom php app world). Here's an example error:
+Let's do something harder. 
 
-```bash
-type=AVC msg=audit(1715415270.768:35): avc: denied { getattr } for pid=1440 \
-  comm="nginx" path="/var/www/bookstack.html" dev=vda1 ino=1084 \
-  scontext=unconfined_u:system_r:httpd_t:s0 \
-  tcontext=unconfined_u:object_r:default_t:s0 tclass=file
-```
+### Scenario 2
 
-Now we run audit2why against it, like so:
+You've got the same LEMP stack, but you want nginx to serve connections to Bookstack in a non-default way. Let's say you pull the code from outside and you don't set up any selinux rules, and then find it doesn't work accessing the bookstack.html file:
 
 ```bash
 # grep 1715415270.768:35 /var/log/audit/audit.log | audit2why
@@ -85,9 +80,9 @@ type=AVC msg=audit(1715415270.768:35): avc: denied { getattr } for pid=1440 \
   Missing type enforcement (TE) allow rule.
 ```
 
-This is a major source of pain, so let's cover the manual way to deal with it first.
+This is an example of how selinux can prevent a legitimate application from accessing data it shouldn't access (obviously simple).
 
-#### Modify the file label
+#### Manual Fix
 
 Modify the file label so that the httpd_t domain can access the file:
 
@@ -105,13 +100,15 @@ To modify file labels for groups of files, run:
 
 `restorecon -Rv /var/www`
 
-#### Alternative choice, extending the httpd_t 'Domain' permissions with Audit2Allow
+#### More Automated Approach
+
+Screw doing that for files one at a time, am I right?
 
 First, check what the file would read like (just to see, not functional):
 
 `grep nginx /var/log/audit/audit.log | audit2allow -W -a`
 
-That generated file will be used to modify the selinux domain for this context and allow the new areas. This creates a Type Enforcement (.te) policy:
+That generated file will be used to modify the selinux domain for this context and allow the new areas. Now create a Type Enforcement (.te) policy:
 
 `grep nginx /var/log/audit/audit.log | audit2allow -m nginx > nginx.te`
 
@@ -142,12 +139,12 @@ Now, we use the -M option to create a *compiled* policy:
 
 And then we import the Policy Package (.pp), and verify it's working:
 
-```bash
-semodule -i nginx.pp
-semodule -l | grep nginx
-
-nginx 1.0
 ```
+#  semodule -i nginx.pp
+#  semodule -l | grep nginx
+```
+
+Boom. Now you're fixing all sorts of shitty broken php apps and it takes you just a few minutes, like some kind of server wizard.
 
 ## SETools
 
@@ -191,3 +188,11 @@ And bam! It's working. You might get a message that it's already defined--if so,
 # semanage port -l | grep 8080
 http_cache_port_t tcp 3128, 8080, 8118, 8123, 10001-10010
 ```
+
+## IN SUMMARY
+
+It's 2018.
+
+Stop disabling SELinux. 
+
+You have no excuse now. 

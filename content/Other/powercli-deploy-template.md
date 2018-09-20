@@ -5,7 +5,7 @@ Tags: powercli, vmware
 Authors: Admiralspark
 Summary: Tired of trying to make the flash client work? Want automation? Use PowerCLI!
 
-### The Goods
+## The Goods
 
 This will be quick and easy, but it's easier for me to be able to reference it than to type it out every time. You need to have your information ready ahead of time for your environment. If you've never done this before, I'll run through the enumeration via CLI now.
 
