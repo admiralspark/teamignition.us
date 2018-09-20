@@ -3,7 +3,6 @@ Date: 2018-09-20 5:30
 Category: Other
 Tags: powercli, vmware
 Authors: Admiralspark
-
 Summary: Tired of trying to make the flash client work? Want automation? Use PowerCLI!
 
 ### The Goods
