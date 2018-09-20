@@ -4,7 +4,7 @@ Category: Windows
 Tags: powershell, snippets, AD
 Slug: posh-replication
 Authors: Admiralspark
-Summary: The first in a series of Powershell quick tip articles, this one concerning Active Directory replication
+Summary: Sick of waiting for Active Directory replication? Me too...
 
 Ever run into a situation where you're stuck waiting for a change you made with **Active Directory Users and Computers** (ADUC) or **Exchange Control Panel** (ECP) to propagate? Well, this should help you out then! 
 

@@ -3,8 +3,7 @@ Date: 2018-07-15 17:30
 Category: Other
 Tags: python, networking, scripting, automation
 Authors: Admiralspark
-
-## Finally, a New Release
+Summary: Finally, a new release!
 
 It's been a long time in the making but I've finally released the new and improved [netspark-scripts](https://github.com/admiralspark/NetSpark-Scripts)!
 
