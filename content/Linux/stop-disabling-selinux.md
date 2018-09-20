@@ -148,7 +148,7 @@ Boom. Now you're fixing all sorts of shitty broken php apps and it takes you jus
 
 ### SETools
 
-Another utility that's handy to have. Install it using `yum install setools'.
+Another utility that's handy to have. Install it using `yum install setools`.
 
 So what if the issue you're facing is that you're using nginx to serve content on a nonstandard port? SELinux correctly knows that it shouldn't be serving content on 8082 by default (thanks to the selinux context built into the package), so we need to modify the system contexts to allow such a thing.
 
