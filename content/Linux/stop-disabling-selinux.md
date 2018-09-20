@@ -146,7 +146,7 @@ And then we import the Policy Package (.pp), and verify it's working:
 
 Boom. Now you're fixing all sorts of shitty broken php apps and it takes you just a few minutes, like some kind of server wizard.
 
-## SETools
+### SETools
 
 Another utility that's handy to have. Install it using `yum install setools'.
 
@@ -189,7 +189,7 @@ And bam! It's working. You might get a message that it's already defined--if so,
 http_cache_port_t tcp 3128, 8080, 8118, 8123, 10001-10010
 ```
 
-## IN SUMMARY
+### In Summary
 
 It's 2018.
 
