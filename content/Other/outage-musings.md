@@ -34,18 +34,18 @@ Are you sure spanning tree is configured? Are you sure it works? Map this stuff 
 So, here's a list of things we needed that we didn't have in our disaster plan:
 
 - Config Backups - They were stored, in git revision, backed up automatically...to a server on the host that was taken down. Oops. 
-  - Consider having a local copy synced, weekly or daily depending on your needs
+    - Consider having a local copy synced, weekly or daily depending on your needs
 - IP Spreadsheet/IPAM assignments/Something correlating network gear DNS entries to IP addresses
-  - Fell into my own trap here, having DNS names was nice...until the virtualized DNS server isn't reachable
+    - Fell into my own trap here, having DNS names was nice...until the virtualized DNS server isn't reachable
 - Password manager - Did you store that database on a virtualized appliance? Do you have an offline backup?
 - Recovery process practiced - Hardware spares are only as good as you can quickly redeploy them
-  - Make sure you have on-hand tools for transferring configs to hardware spares (FTP server, usb, however they do it) or provisioning systems that work when the network doesn't
+    - Make sure you have on-hand tools for transferring configs to hardware spares (FTP server, usb, however they do it) or provisioning systems that work when the network doesn't
 - Redundant monitoring
-  - Is your monitoring server virtualized? Does it have something else monitoring it? If it goes down, how will you know after hours?
+    - Is your monitoring server virtualized? Does it have something else monitoring it? If it goes down, how will you know after hours?
 - Physical copy of the network map
-  - Ideally, have names and IP's of network gear, plus uplinks/critical ports labeled. 
-  - Save it offline as well as in your backups. 
-  - Have enough information in it that you could rebuild it enough to get to your config and server backups, if all of your network gear lost their configs entirely. 
+    - Ideally, have names and IP's of network gear, plus uplinks/critical ports labeled. 
+    - Save it offline as well as in your backups. 
+    - Have enough information in it that you could rebuild it enough to get to your config and server backups, if all of your network gear lost their configs entirely. 
 
 I highly encourage someone to play out an outage event at various different levels in the network. Start at someone cutting an ethernet cable with scissors, move to spanning tree issues, move to VRRP/routing issues, move to authentication servers being down, then virtualization hosts (test vmotions and HA), then applications themselves. **Don't forget your phone system!**
 
