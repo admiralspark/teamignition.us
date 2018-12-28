@@ -35,16 +35,16 @@ It might look confusing at first, but I'll break it out into sections as we go. 
 $DateMS = (Get-Date).ToString('MMddyyyy-hh:mm:ss.fff')
 ```
 
-This is pretty straightforward: we can call on $DateMS to get the current date/time, formatted as it shows, so that each log entry can be correlated in the file. I chose to break it down to milliseconds here just for my own needs, but you might find that a bit too verbose.
+This is pretty straightforward: we can call on **$DateMS** to get the current date/time, formatted as it shows, so that each log entry can be correlated in the file. I chose to break it down to milliseconds here just for my own needs, but you might find that a bit too verbose.
 
 ```powershell
 $LogName = "$(gc env:computername).log"
 $Logfile = Join-Path $PSScriptRoot $LogName
 ```
 
-$LogName makes use of the global environment variable `$(gc env:computername)` which will resolve to the hostname of the machine the script is running on. I actually have my scripts all dump their output to the same file, so I can pull up the file based on the computername and see which scripts ran recently and how far they got. 
+**$LogName** makes use of the global environment variable `$(gc env:computername)` which will resolve to the hostname of the machine the script is running on. I actually have my scripts all dump their output to the same file, so I can pull up the file based on the computername and see which scripts ran recently and how far they got. 
 
-$Logfile just makes use of Join-Path to cleanly build the path string for where the log files are stored. Repeat after me: **I will never use hardcoded paths!**. I took advantage of the [$PSScriptRoot](https://stackoverflow.com/a/3667376) variable, which always is equal to the **relative** path of the directory where the script is running from, to spit the log outputs in that same folder--this lets me run the script from a share or server (signed, of course) and centrally keep the logs. Obviously, tweak this as needed for where you want to save them. 
+**$Logfile** just makes use of Join-Path to cleanly build the path string for where the log files are stored. Repeat after me: **I will never use hardcoded paths!**. I took advantage of the [$PSScriptRoot](https://stackoverflow.com/a/3667376) variable, which always is equal to the **relative** path of the directory where the script is running from, to spit the log outputs in that same folder--this lets me run the script from a share or server (signed, of course) and centrally keep the logs. Obviously, tweak this as needed for where you want to save them. 
 
 ```powershell
 Function LogWrite
