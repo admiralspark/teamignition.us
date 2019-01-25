@@ -22,7 +22,7 @@ $Logfile = Join-Path $PSScriptRoot $LogName
 Function LogWrite
 {
     Param ([string]$logstring)
-    Add-Content $Logfile -value "$DateMS + $logstring"
+    Add-Content $Logfile -value "$DateMS $logstring"
 }
 
 $scriptName = $MyInvocation.MyCommand.Name
@@ -54,7 +54,7 @@ Function LogWrite
 }
 ```
 
-The function itself! LogWrite is the meat of the whole operation here. `Param ([string]$logstring)` just tells the interpreter that this function has one "parameter"; in our case, it takes everything after when we call LogWrite and assigns it to the variable **$logstring**. Then, `Add-Content $Logfile -value "$DateMS + $logstring"` adds a new line to the file **$Logfile**, begins it with the current value of **$DateMS**, and adds the **$logstring** content to that line. Since it's wrapped in a function, we can call on it anywhere in our script now. 
+The function itself! LogWrite is the meat of the whole operation here. `Param ([string]$logstring)` just tells the interpreter that this function has one "parameter"; in our case, it takes everything after when we call LogWrite and assigns it to the variable **$logstring**. Then, `Add-Content $Logfile -value "$DateMS $logstring"` adds a new line to the file **$Logfile**, begins it with the current value of **$DateMS**, and adds the **$logstring** content to that line. Since it's wrapped in a function, we can call on it anywhere in our script now. 
 
 ```powershell
 $scriptName = $MyInvocation.MyCommand.Name
