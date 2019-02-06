@@ -25,7 +25,7 @@ Build a new VM. For the purposes of this guide, we'll be using CentOS 7 for all 
 * You can get an enterprise support contract on it through RedHat
 * It is the enterprise standard for linux in North America
 * It contains several security features not found in many other linux distros
-* * Namely we will be leaving SELinux enabled for all of this, and I will guide you through any tweaks we need to make
+  * Namely we will be leaving SELinux enabled for all of this, and I will guide you through any tweaks we need to make
 
 Would Ubuntu/Debian/Suse work for this? Heck yeah, and they have instructions for it. Go for it. I vote for using whatever OS your org standardized on, and since my team lead told me "I don't care what we use as long as we can get enterprise support on it and it's stable", I chose CentOS.
 
@@ -34,7 +34,7 @@ Would Ubuntu/Debian/Suse work for this? Heck yeah, and they have instructions fo
 I set up my CentOS boxes in a specific way: 
 
 * SELinux enabled, use the Standard Baseline policy if you have to make a choice
-* Make a local admin account. We'll call it "admin" for the sake of this demo
+* I run all of the below commands as root unless specified otherwise...I'll get into the why when we work with Ansible later on
 * `yum install epel-release -y`
 * `yum update -y`
 * `yum install net-tools wget htop vim policycoreutils-python tmux yum-utils open-vm-tools -y`
@@ -68,6 +68,7 @@ Ignore warnings about running as root. This is fixed later (permissions-wise).
 cd /opt
 composer create-project --no-dev --keep-vcs librenms/librenms librenms dev-master
 ```
+
 
 ### LibreNMS Database
 
@@ -106,11 +107,12 @@ systemctl enable mariadb
 systemctl restart mariadb
 ```
 
+
 ### Web Server/Frontend
 
-#### Make PHP-FPM do it's unicorn magic:
+#### Make PHP-FPM do its unicorn magic:
 
-Ensure date.timezone is set in php.ini to your preferred time zone. See http://php.net/manual/en/timezones.php for a list of supported timezones. Valid examples are: "America/New_York", "Australia/Brisbane", "Etc/UTC", "America/Anchorage".
+Ensure **date.timezone** is set in php.ini to your preferred time zone. See http://php.net/manual/en/timezones.php for a list of supported timezones. Valid examples are: "America/New_York", "Australia/Brisbane", "Etc/UTC", "America/Anchorage".
 
 ```bash
 vim /etc/php.ini
@@ -150,6 +152,7 @@ Now enable and restart php-fpm:
 systemctl enable php-fpm
 systemctl restart php-fpm
 ```
+
 
 #### Configure NGINX
 
@@ -192,6 +195,7 @@ server {
   <p class="mb-0">If this is the only site you are hosting on this server (it should be :)) then you will need to disable the default site. Delete the <code>server</code> section from <code>/etc/nginx/nginx.conf</code>.</p>
 </div>
 
+
 ### SELinux stuff!
 
 Install the greatest tool ever made for SElinux management if you haven't already:
@@ -219,6 +223,7 @@ setsebool -P httpd_can_sendmail=1
 setsebool -P httpd_execmem 1
 ```
 
+
 #### Allowing FPing As Well
 
 Unfortunately we have to use a bit more involved process for this. Create a file via  `vim http_fping.tt` with the following contents (this can be made anywhere as you can delete it once we're done):
@@ -245,13 +250,14 @@ semodule_package -o http_fping.pp -m http_fping.mod
 semodule -i http_fping.pp
 ```
 
-The final command will take a bit to compile a binary selinux module. Congrats, by the way, you just correctly set selinux permissions AND you even compiled your own custom selinux module! 
+The final command will take a bit to compile a binary selinux module. Congrats, by the way, you just correctly set selinux permissions AND you even compiled your own custom selinux module!
+
 
 ### Firewall Rules
 
 Since we used a baseline CentOS, we will configure firewalld instead of base iptables. Firewalld, when configured using the firewall-cmd tool, is just as simple as iptables--any sysadmin who tells you otherwise just wants these darned kids and their zones to get off his or her lawn! Remind me to do a primer on it later.
 
-Anyway:
+**Anyway:**
 
 ```bash
 firewall-cmd --zone public --add-service http
@@ -261,6 +267,7 @@ firewall-cmd --permanent --zone public --add-service https
 ```
 
 This configures the rules on the active session and the permanent session (what's loaded on reboot), so you don't have to run `firewall-cmd --reload` to get them to take effect.
+
 
 ### Configure SNMPd
 
@@ -283,6 +290,7 @@ systemctl enable snmpd
 systemctl restart snmpd
 ```
 
+
 #### Cron Job
 
 This default job works fine enough for our needs:
@@ -291,6 +299,7 @@ This default job works fine enough for our needs:
 cp /opt/librenms/librenms.nonroot.cron /etc/cron.d/librenms
 ```
 
+
 #### Set LogRotate
 
 So as to make sure `/opt/librenms/logs` doesn't fill up our disk, run the following to rotate them out:
@@ -298,6 +307,7 @@ So as to make sure `/opt/librenms/logs` doesn't fill up our disk, run the follow
 ```bash
 cp /opt/librenms/misc/librenms.logrotate /etc/logrotate.d/librenms
 ```
+
 
 #### Final File Permissions
 
@@ -312,19 +322,19 @@ chgrp apache /var/lib/php/session/
 
 Now we go to do the webinstaller finishing touches! `http://librenms.ti.local/install.php` When you hit the install.php page you should see the following:
 
-![Finally it works!]({filename}/images/OSS-2.2.png)
+![Finally it works!]({filename}/images/OSS-2.2.PNG)
 
 Follow the on-screen prompts to get this all set up.
 
-![Set up using the information from earlier (all you need is password here)]({filename}/images/OSS-2.3.png)
+![Set up using the information from earlier (all you need is password here)]({filename}/images/OSS-2.3.PNG)
 
-![Successful import!]({filename}/images/OSS-2.4.png)
+![Successful import!]({filename}/images/OSS-2.4.PNG)
 
-![Initial User Creation]({filename}/images/OSS-2.5.png)
+![Initial User Creation]({filename}/images/OSS-2.5.PNG)
 
-![Successful useradd]({filename}/images/OSS-2.6.png)
+![Successful useradd]({filename}/images/OSS-2.6.PNG)
 
-![See Below for how to deal with this error]({filename}/images/OSS-2.7.png)
+![See Below for how to deal with this error]({filename}/images/OSS-2.7.PNG)
 
 <div class="alert alert-dismissible alert-warning">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -338,13 +348,14 @@ chown librenms:librenms /opt/librenms/config.php
 
 Now hit **Finish Install**!
 
-![Of course, hit validate install here]({filename}/images/OSS-2.8.png)
+![Of course, hit validate install here]({filename}/images/OSS-2.8.PNG)
 
 and....
 
-![Completed!!]({filename}/images/OSS-2.9.png)
+![Completed!!]({filename}/images/OSS-2.9.PNG)
 
-### Troubleshooting
+
+## Troubleshooting
 
 If you EVER have issues with LibreNMS, these are the first steps to run (as the `librenms` user):
 
@@ -353,19 +364,20 @@ cd /opt/librenms
 ./validate.php
 ```
 
+
 ## Tweaks to LibreNMS
 
 I do have a few tweaks we should make to LibreNMS before proceeding on. All of these changes are made by editing the config.php file via `vim /opt/librenms/config.php` and saving, and they take effect immediately (no service restarts needed). 
 
-#### Active Directory Authentication 
+### Active Directory Authentication 
 
 If you have an Active Directory, set up LibreNMS to use [Active Directory Authentication](https://docs.librenms.org/#Extensions/Authentication/#active-directory-authentication). This is big, never set up a system with a single user access.
 
-#### Stable Update Channel (Enterprise Releases)
+### Stable Update Channel (Enterprise Releases)
 
 Trust me, set it up to use the [Stable Update Channel](https://github.com/librenms/librenms/blob/master/doc/General/Releases.md#stable-branch). This is not master or devel, this is about once monthly and happens when they feel they have another stable release.
 
-#### Email Alerts with embedded HTML graphs
+### Email Alerts with embedded HTML graphs
 
 If you want to have beautifully formatted email alerts, you can enable html emails and graphs:
 
@@ -374,7 +386,7 @@ $config['email_html'] = TRUE;
 $config['allow_unauth_graphs'] = 1;
 ```
 
-#### Nagios Service Checks
+### Nagios Service Checks
 
 A requirement. [Enable Nagios service checks](https://docs.librenms.org/#Extensions/Services/). These are awesome, and let you graph service performance like SQL and HTTP(s) response times. Supports custom queries as well!
 
