@@ -25,7 +25,7 @@ Build a new VM. For the purposes of this guide, we'll be using CentOS 7 for all 
 * You can get an enterprise support contract on it through RedHat
 * It is the enterprise standard for linux in North America
 * It contains several security features not found in many other linux distros
-  * Namely we will be leaving SELinux enabled for all of this, and I will guide you through any tweaks we need to make
+    * Namely we will be leaving SELinux enabled for all of this, and I will guide you through any tweaks we need to make
 
 Would Ubuntu/Debian/Suse work for this? Heck yeah, and they have instructions for it. Go for it. I vote for using whatever OS your org standardized on, and since my team lead told me "I don't care what we use as long as we can get enterprise support on it and it's stable", I chose CentOS.
 
