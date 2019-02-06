@@ -39,29 +39,12 @@ As a high level, I'll be going through the installation and configuration of the
 - **Oxidized** - automatic configuration backups and revisioning, exporting to your Gitlab instance above
     - If you use centralized auth (RADIUS), you can even see *who made which changes when* using this, which is awesome for change management
 - **Graylog** for centralized logging, alerting on those logs, and threat intelligence once we have it ingesting network traffic
-    - I'll also talk a bit here about event correlation as I go along, this is a WIP right now, but a bunch of what makes a SIEM useful can be imoplemented here without having the full stack SIEM to babysit all day.
+    - I'll also talk a bit here about event correlation as I go along, this is a WIP right now, but a bunch of what makes a SIEM useful can be implemented here without having the full stack SIEM to babysit all day.
 - **Ansible** - Once all of this is set up, you need to be able to deploy it *consistently* and *correctly*, so using Ansible to push to Windows, Linux and network devices. All, of course, backed up and managed by your git repo in Gitlab
 - Finally, auto-remediation will be orchestrated by all of these pieces working together.
 
-At the end of this, you will be able to react proactively instead of reactively to issues in your environment, have a better hgih-level and detailed view of what's actually happening in your network, and a scalable, widely-supported git-based solution for your device configurations, change management and automation systems. I'll try to cover all of the details that normally get skipped, like how to actually format your Oxidized configs and what Group Policies are needed for WinRM connectivity in Windows domains.
+At the end of this, you will be able to react proactively instead of reactively to issues in your environment, have a better high-level and detailed view of what's actually happening in your network, and a scalable, widely-supported git-based solution for your device configurations, change management and automation systems. I'll try to cover all of the details that normally get skipped, like how to actually format your Oxidized configs and what Group Policies are needed for WinRM connectivity in Windows domains.
 
-## First, the basics: LibreNMS
+Something to keep in mind: there are a lot of possibilities with the software we're going to set up. I'm going to add features that I think are needed, and skip those that aren't. You may come back later on and add other pieces I skipped for the sake of brevity, but this guide is meant to get you up and running.
 
-To begin, we'll [set up LibreNMS and monitor our first endpoint](https://docs.librenms.org/#Installation/Installation-CentOS-7-Nginx/). For future setups I will detail the installation, but with how fast development of LibreNMS has been recently, just follow that guide and you should be good to go.
-
-### Tweaks to LibreNMS
-
-I do have a few tweaks we should make to LibreNMS before proceeding on:
-
-- If you have an Active Directory, set up LibreNMS to use [Active Directory Authentication](https://docs.librenms.org/#Extensions/Authentication/#active-directory-authentication). This is big, never set up a system with a single user access.
-- Set it up to use the [Stable Update Channel](https://github.com/librenms/librenms/blob/master/doc/General/Releases.md#stable-branch). This is not master or devel, this is about once monthly and happens when they feel they have another stable release.
-- If you want to have beautifully formatted email alerts, you can enable html emails and graphs:
-
-```php
-$config['email_html'] = TRUE;
-$config['allow_unauth_graphs'] = 1;
-```
-
-- [Enable Nagios service checks](https://docs.librenms.org/#Extensions/Services/). These are awesome, and let you graph service performance like SQL and HTTP(s) response times. Supports custom queries as well!
-
-Now, we're ready to proceed on to [Part 2: Centralized configuration revision and config backups]! (coming soon!)
+Now, we're ready to proceed on to [Part 2: Installing LibreNMS and tweaking it to work in your environment]({filename}/Linux/OSSOrchestration-2.md).
