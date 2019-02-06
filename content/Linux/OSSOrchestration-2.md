@@ -388,6 +388,6 @@ $config['allow_unauth_graphs'] = 1;
 
 ### Nagios Service Checks
 
-A requirement. [Enable Nagios service checks](https://docs.librenms.org/#Extensions/Services/). These are awesome, and let you graph service performance like SQL and HTTP(s) response times. Supports custom queries as well!
+A requirement. [Enable Nagios service checks](https://docs.librenms.org/Extensions/Services/) being careful to note that in CentOS 7, they're located in `/usr/lib64/nagios/plugins/`. These are awesome, and let you graph service performance like SQL and HTTP(s) response times. Supports custom queries as well!
 
 Now Onwards! [Ansible: From Install to Automating Installs] (Coming Soon!)
