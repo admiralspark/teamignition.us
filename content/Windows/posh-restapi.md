@@ -4,7 +4,6 @@ Category: Windows
 Tags: powershell, snippets, REST API
 Authors: Admiralspark
 Summary: Invoke-RestMethod in all its glory!
-Status: draft
 
 [Invoke-RestMethod](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod?view=powershell-6) is Powershell's awesome REST API tool, and is a valuable function that I seem to be using more and more. Every developer seems to be building a RESTful API of some sort nowadays for their software, and being able to use these API's to reduce your workload and automate away more busywork means you're now free to work on the important jobs!
 
@@ -18,7 +17,7 @@ As with most Powershell modules, we can use `Get-Help Invoke-RestMethod` and see
 Invoke-RestMethod -Method Get -Uri http://$Server/api/v4/projects/ 
 ```
 
-This does a simple GET request to an endpoint, and returns the data formatted as powershell objects. For example, here I poll my gitlab instance to find the projects that we have stored there:
+This does a simple GET request to an endpoint, and returns the data formatted as powershell objects. For example, here I poll my gitlab instance to find the project repositories that I have stored there:
 
 ```powershell
 $r = Invoke-RestMethod -Headers @{ 'PRIVATE-TOKEN'=$Token } -Uri http://$Server/api/v4/projects/
@@ -151,12 +150,13 @@ Then make the call:
 Invoke-RestMethod -Method Get -Headers $headers -Uri http://$Server/api/v4/projects/$projectID/repository/archive.zip -OutFile $outfile
 ```
 
-This returns a binary stream (the zip file) which we spit out to $outfile (the directory where we want it). 
+This returns a binary stream (the zip file) which we spit out to `$outfile` (the directory where we want it). 
 
 I then add some logic in to maintain only two week's worth of the files so we don't fill up the disk:
 
 ```powershell
 # Now clean up the saved files folder
+# First, select all of the files older than 14 days
 $OldFiles = Get-ChildItem -Path $BackupDir\* -Include *_Config_Backups.zip | Where-Object {$_.lastwritetime -lt (get-date).adddays(-14)}
 
 # Iterate through the old files and remove them
