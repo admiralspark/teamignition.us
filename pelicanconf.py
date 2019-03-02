@@ -46,6 +46,9 @@ THEME = "/home/admiralspark/pelican-themes/pelican-bootstrap3"
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 BOOTSTRAP_THEME = 'lumen'
 
+# Make shit pretty
+TYPOGRIFY = True
+
 # For Testing purposes
 LOAD_CONTENT_CACHE = True
 
