@@ -106,7 +106,7 @@ Screw doing that for files one at a time, am I right?
 
 First, check what the file would read like (just to see, not functional):
 
-`grep nginx /var/log/audit/audit.log | audit2allow -W -a`
+`grep nginx /var/log/audit/audit.log | audit2allow -w -a`
 
 That generated file will be used to modify the selinux domain for this context and allow the new areas. Now create a Type Enforcement (.te) policy:
 
