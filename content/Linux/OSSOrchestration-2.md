@@ -11,7 +11,7 @@ LibreNMS is a high-quality Network Monitoring System that originally was a fork 
 
 Here we are, the network in all it's glory:
 
-![ti.local so far]({filename}/images/OSSOrchestration-2.1.png)
+![ti.local so far]({static}/images/OSSOrchestration-2.1.png)
 
 This is mostly to show you all how things stand currently. I am a VMUG Advantage member and so have access to everything included in [EVALExperience](https://www.vmug.com/Join//EVALExperience) for the cost of that membership ($200-10% using whatever the latest code is). This is a wicked deal for homelabbers who are serious about pursuing VMware knowledge, but honestly you can get by just fine using free ESXi, or physical boxes, or virtualbox, or proxmox, or whatever you have access to. In the end, I build four boxes and will be targeting some of my content at people who have the Vsphere API access (requires a vcenter), specifically using Ansible to build VM's, but if you make them by hand you can do all the rest here without going VMware.
 
@@ -322,19 +322,19 @@ chgrp apache /var/lib/php/session/
 
 Now we go to do the webinstaller finishing touches! `http://librenms.ti.local/install.php` When you hit the install.php page you should see the following:
 
-![Finally it works!]({filename}/images/OSS-2.2.PNG)
+![Finally it works!]({static}/images/OSS-2.2.PNG)
 
 Follow the on-screen prompts to get this all set up.
 
-![Set up using the information from earlier (all you need is password here)]({filename}/images/OSS-2.3.PNG)
+![Set up using the information from earlier (all you need is password here)]({static}/images/OSS-2.3.PNG)
 
-![Successful import!]({filename}/images/OSS-2.4.PNG)
+![Successful import!]({static}/images/OSS-2.4.PNG)
 
-![Initial User Creation]({filename}/images/OSS-2.5.PNG)
+![Initial User Creation]({static}/images/OSS-2.5.PNG)
 
-![Successful useradd]({filename}/images/OSS-2.6.PNG)
+![Successful useradd]({static}/images/OSS-2.6.PNG)
 
-![See Below for how to deal with this error]({filename}/images/OSS-2.7.PNG)
+![See Below for how to deal with this error]({static}/images/OSS-2.7.PNG)
 
 <div class="alert alert-dismissible alert-warning">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -348,11 +348,11 @@ chown librenms:librenms /opt/librenms/config.php
 
 Now hit **Finish Install**!
 
-![Of course, hit validate install here]({filename}/images/OSS-2.8.PNG)
+![Of course, hit validate install here]({static}/images/OSS-2.8.PNG)
 
 and....
 
-![Completed!!]({filename}/images/OSS-2.9.PNG)
+![Completed!!]({static}/images/OSS-2.9.PNG)
 
 
 ## Troubleshooting

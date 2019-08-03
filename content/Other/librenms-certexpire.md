@@ -13,7 +13,7 @@ Setting up a service check for your HTTP-based services is pretty easy: just go 
 
 Pretty soon, you should see some graphs start to fill:
 
-![basic http check]({filename}/images/librenms-servicegraphs1.PNG)
+![basic http check]({static}/images/librenms-servicegraphs1.PNG)
 
 It tracks your latency (in ms) of the service response time as well as the size of what an HTTP GET had returned. This is highly useful data and you can build custom alerting around thresholds for this if you want. By default, a Warning or Error state will only return if the service stops responding.
 
@@ -23,7 +23,7 @@ Those are fine and dandy, but I also needed to track certificate expiration so w
 
 Add another service check to your box, but this time use the options set here:
 
-![cert check]({filename}/images/librenms-httpcertexpire.PNG)
+![cert check]({static}/images/librenms-httpcertexpire.PNG)
 
 **--sni** enables TLS hostname extension support
 
