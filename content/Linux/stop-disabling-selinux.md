@@ -106,7 +106,7 @@ Screw doing that for files one at a time, am I right?
 
 First, check what the file would read like (just to see, not functional):
 
-`grep nginx /var/log/audit/audit.log | audit2allow -w -a`
+`grep nginx /var/log/audit/audit.log | audit2allow -wW -a`
 
 That generated file will be used to modify the selinux domain for this context and allow the new areas. Now create a Type Enforcement (.te) policy:
 
@@ -196,3 +196,6 @@ It's 2018.
 Stop disabling SELinux. 
 
 You have no excuse now. 
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbMTI3NjM1MDQ5N119
+-->
