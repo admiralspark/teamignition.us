@@ -1,5 +1,5 @@
 Title: SELinux - Practical Intro to Audit2Why and Audit2Allow
-Date: 2019-01-18 20:30
+Date: 2020-01-18 20:30
 Category: Linux
 Tags: selinux, centos
 Authors: Admiralspark
