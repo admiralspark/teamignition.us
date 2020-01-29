@@ -3,7 +3,7 @@ Date: 2019-08-02 17:39
 Category: Other
 Tags: librenms, services, certs
 Authors: Admiralspark
-Summary: We warned when you're running out of time to swap certificates
+Summary: Be warned when you're running out of time to swap certificates
 
 If you've [followed along on the journey so far]({filename}/Linux/OSSOrchestration-2.md), you probably have LibreNMS set up with several modules enabled and tied to your AD. One thing I mention in there is that you should enable the Nagios-style service checks, from the checkmd project. One of the plugins I use all the time is the [http service check](https://www.monitoring-plugins.org/doc/man/check_http.html).
 
