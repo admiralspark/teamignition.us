@@ -50,7 +50,7 @@ BOOTSTRAP_THEME = 'lumen'
 TYPOGRIFY = True
 
 # For Testing purposes
-LOAD_CONTENT_CACHE = True
+LOAD_CONTENT_CACHE = False
 
 DEFAULT_PAGINATION = 10
 
