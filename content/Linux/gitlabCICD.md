@@ -9,7 +9,7 @@ Summary: The complete journey from nothing to fully automated deployment.
 
 Unfortunately, life has gotten in the way over the last year, what with COVID pushing my team to the limits at work and crazy amounts of project engineering coming front and center instead of personal projects. The homelab has morphed several times, and now we're at the following layout:
 
-[2020-01-20 Homelab]({static}/images/homelab.jpg)
+![2020-01-20 Homelab]({static}/images/homelab.jpg)
 
 I've finally moved the lab to 10GBps switching, and since I don't have networks I need to route to above 1GB/s I probably won't swap the 3100 for now.
 
