@@ -27,15 +27,22 @@ I had a need to have some testing done on this blog, and I always wanted to have
 
 We are going to:
 * Install a Runner to run our code tests
+
 * Fix certificate issues on Gitlab runners
+
 * Build a basic gitlab-ci.yml file for automated testing
+
 * Deploy to Test
+
 * Deploy to Prod
 
 You will need:
 * A working Gitlab instance with a repository for your code
+
 * A Certificate Authority. If you have no other options, PFSense has a built-in one that works well
+
 * A "Test" server. For me, this was a blank CentOS linux box that I took a vmware snapshot of before testing. I will call it ti-test.ti.local
+
 * A "Prod" server. Can just be another local server or a cloud server, in my case a DigitalOcean droplet. I will call it teamignition.us
 
 ### Install a Gitlab Runner
@@ -50,7 +57,7 @@ I ran into an error that drove me nuts for a while. Gitlab assumes you're using 
 
 Download a copy of the signing CA. In the pfsense deployment I mentioned above, you can grab the public key for your root CA by going to **System** > **Cert Manager** > **CAs** and hitting the Export CA star on the right. Install it to your server--for CentOS, copy the files to **/etc/pki/ca-trust/source/anchors/** and run ```update-ca-trust``` to install it.
 
-Now, generate a server certificate (same place above, **Certificates** tab for pfsense), export the cert and the key, import them to **/etc/gitlab/ssl/** and restart Gitlab's services to switch the certificate. If your runner is on another box, add the root CA to it as well. Now, your certificate errors when making a runner should be gone!
+Now, generate a server certificate (same place above, **Certificates** tab for pfsense), export the cert and the key, copy them to **/etc/gitlab/ssl/** and restart Gitlab's services to switch the certificate. If your runner is on another box, add the root CA to it as well. Now, your certificate errors when making a runner should be gone!
 
 ### The .gitlab-ci.yml File
 
@@ -183,7 +190,7 @@ I run the same playbook a second time here--only for testing, this is a one-line
 
 Finally, we deploy the blog using prod_deploy_blog. This reaches to git, grabs the latest master branch, pushes to the website and then runs the necessary Pelican tools to produce HTML since I hate doing it myself. This produces a very lean static site with no fancy code or animations, formatting nicely on mobile and requiring very little bandwidth. 
 
-Notice the Only: and Except: chunks. Only makes this step only run on git branches, and Except prevents it running on Master...this way, every branch I make (dev) except for the original master will push to test, but only the Master branch will automatically push to prod:
+Notice the **Only:** and **Except:** chunks. Only makes this step only run on git branches, and Except prevents it running on Master...this way, every branch I make (dev) except for the original master will push to test, but only the Master branch will automatically push to prod:
 
 ```YAML
 Ansible Deploy to Server:
